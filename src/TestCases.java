@@ -8,6 +8,8 @@ import org.openqa.selenium.support.ui.Select;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
+import io.opentelemetry.exporter.logging.SystemOutLogRecordExporter;
+
 
 public class TestCases extends Parameter {
 
@@ -18,32 +20,59 @@ public class TestCases extends Parameter {
 		
 	}
 	
-//	@Test()
-//	public void Signup() {
-//		WebElement signupButton = driver.findElement(By.xpath("/html/body/div[1]/header/div[1]/div/ul/li[3]/a"));
-//		signupButton.click();
-//		
-//		WebElement FirstNameField = driver.findElement(By.xpath("//*[@id=\"firstname\"]"));
-//		FirstNameField.sendKeys(FirstName);
-//		WebElement LastNameField = driver.findElement(By.xpath("//*[@id=\"lastname\"]"));
-//		LastNameField.sendKeys(LastName);
-//		WebElement EmailField = driver.findElement(By.xpath("//*[@id=\"email_address\"]"));
-//		EmailField.sendKeys(Email);
-//		WebElement PasswordField = driver.findElement(By.xpath("//*[@id=\"password\"]"));
-//		PasswordField.sendKeys(Password);
-//		WebElement ConfPasswordField = driver.findElement(By.xpath("//*[@id=\"password-confirmation\"]"));
-//		ConfPasswordField.sendKeys(Password);
-//		WebElement CreatButton = driver.findElement(By.xpath("//*[@id=\"form-validate\"]/div/div[1]/button"));
-//		CreatButton.click();
-//		WebElement welcomesection = driver.findElement(By.xpath("//*[@id=\"maincontent\"]/div[1]/div[2]/div/div/div"));
-//		String welcomeMsg = welcomesection.getText();
-//		
-//		myassert.assertEquals(welcomeMsg.contains("Thank you for registering with Main Website Store."), true);
-//	
-//	}
+	@Test(priority = 1)
+	public void Signup() throws InterruptedException {
+		WebElement signupButton = driver.findElement(By.xpath("/html/body/div[1]/header/div[1]/div/ul/li[3]/a"));
+		signupButton.click();
+		
+		WebElement FirstNameField = driver.findElement(By.xpath("//*[@id=\"firstname\"]"));
+		
+		FirstNameField.sendKeys(FirstName[RandName]);
+		WebElement LastNameField = driver.findElement(By.xpath("//*[@id=\"lastname\"]"));
+		LastNameField.sendKeys(LastName[RandName]);
+		WebElement EmailField = driver.findElement(By.xpath("//*[@id=\"email_address\"]"));
+		FullEmail = PartEmail+RandEmail+RestEmail;
+		EmailField.sendKeys(FullEmail);
+		WebElement PasswordField = driver.findElement(By.xpath("//*[@id=\"password\"]"));
+		PasswordField.sendKeys(Password);
+		WebElement ConfPasswordField = driver.findElement(By.xpath("//*[@id=\"password-confirmation\"]"));
+		ConfPasswordField.sendKeys(Password);
+		WebElement CreatButton = driver.findElement(By.xpath("//*[@id=\"form-validate\"]/div/div[1]/button"));
+		CreatButton.click();
+		Thread.sleep(2000);
+		WebElement welcomesection = driver.findElement(By.xpath("//*[@id=\"maincontent\"]/div[1]/div[2]/div"));
+		String welcomeMsg = welcomesection.getText();
+		
+		myassert.assertEquals(welcomeMsg.contains("Thank you for registering with Main Website Store."), true);
+		
+		driver.get(SingOut);
 	
-//	@Test()
-//	public void searchItems() {
+	}
+	
+	@Test(priority = 2)
+	
+	public void Sigin() {
+		
+		driver.get(SingInPage);
+		WebElement EmailField = driver.findElement(By.xpath("//*[@id=\"email\"]"));
+		EmailField.sendKeys(FullEmail);
+		
+		WebElement PasswordField = driver.findElement(By.xpath("//*[@id=\"pass\"]"));
+		PasswordField.sendKeys(Password);
+		
+		WebElement loginbutton = driver.findElement(By.xpath("//*[@id=\"send2\"]"));
+		loginbutton.click();		
+		
+		
+		
+		
+	  	
+	}
+	
+//	@Test(priority = 3)
+//	public void searchItems() throws InterruptedException {
+//		Thread.sleep(2000);
+//		driver.get(website);
 //		WebElement searchBar = driver.findElement(By.xpath("//*[@id=\"search\"]"));
 //		String [] ItemsList = {"Jacket"," t-shirt","jeans for men","jeans for women","pants"};
 //		int itemsIndex = rand.nextInt(0,5);
@@ -257,42 +286,42 @@ public class TestCases extends Parameter {
 //		}	
 //		}
 		
-		@Test (priority= 8)
-		public void CheckThePrice () throws InterruptedException {
-			
-			WebElement signinbutton = driver.findElement(By.xpath("/html/body/div[1]/header/div[1]/div/ul/li[2]/a"));
-			signinbutton.click();
-			
-			WebElement email = driver.findElement(By.xpath("//*[@id=\"email\"]"));
-			email.sendKeys(Email);
-			
-			WebElement password = driver.findElement(By.xpath("//*[@id=\"pass\"]"));
-			password.sendKeys(Password);
-			
-			WebElement submit = driver.findElement(By.xpath("//*[@id=\"send2\"]"));
-			submit.click();
-			Thread.sleep(5000);
-			WebElement customerButton = driver.findElement(By.xpath("/html/body/div[1]/header/div[1]/div/ul/li[2]/span/button"));
-			customerButton.click();
-			
-			WebElement myaacount = customerButton.findElement(By.xpath("/html/body/div[1]/header/div[1]/div/ul/li[2]/div/ul/li[1]/a"));
-			myaacount.click();
-			
-			WebElement myorders = driver.findElement(By.xpath("//*[@id=\"block-collapsible-nav\"]/ul/li[2]/a"));
-			myorders.click();
-			Thread.sleep(5000);
-						
-			List <WebElement> Allprice = driver.findElements(By.className("price"));
-			String FirstPrice = Allprice.get(5).getText();
-			boolean PriceIsSame = false;
-
-			for (int i=0; i<5;i++) {
-				String actualprice = Allprice.get(i).getText();
-				if(actualprice.equals(FirstPrice)) {
-					PriceIsSame = true;
-				}
-			}
-			myassert.assertEquals(PriceIsSame, true);
-					
-	}		
+//		@Test (priority= 8)
+//		public void CheckThePrice () throws InterruptedException {
+//			
+//			WebElement signinbutton = driver.findElement(By.xpath("/html/body/div[1]/header/div[1]/div/ul/li[2]/a"));
+//			signinbutton.click();
+//			
+//			WebElement email = driver.findElement(By.xpath("//*[@id=\"email\"]"));
+//			email.sendKeys(Email);
+//			
+//			WebElement password = driver.findElement(By.xpath("//*[@id=\"pass\"]"));
+//			password.sendKeys(Password);
+//			
+//			WebElement submit = driver.findElement(By.xpath("//*[@id=\"send2\"]"));
+//			submit.click();
+//			Thread.sleep(5000);
+//			WebElement customerButton = driver.findElement(By.xpath("/html/body/div[1]/header/div[1]/div/ul/li[2]/span/button"));
+//			customerButton.click();
+//			
+//			WebElement myaacount = customerButton.findElement(By.xpath("/html/body/div[1]/header/div[1]/div/ul/li[2]/div/ul/li[1]/a"));
+//			myaacount.click();
+//			
+//			WebElement myorders = driver.findElement(By.xpath("//*[@id=\"block-collapsible-nav\"]/ul/li[2]/a"));
+//			myorders.click();
+//			Thread.sleep(5000);
+//						
+//			List <WebElement> Allprice = driver.findElements(By.className("price"));
+//			String FirstPrice = Allprice.get(5).getText();
+//			boolean PriceIsSame = false;
+//
+//			for (int i=0; i<5;i++) {
+//				String actualprice = Allprice.get(i).getText();
+//				if(actualprice.equals(FirstPrice)) {
+//					PriceIsSame = true;
+//				}
+//			}
+//			myassert.assertEquals(PriceIsSame, true);
+//					
+//	}		
 }

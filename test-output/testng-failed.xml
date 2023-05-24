@@ -5,7 +5,7 @@
     <classes>
       <class name="TestCases">
         <methods>
-          <include name="CheckThePrice"/>
+          <include name="Signup"/>
           <include name="beforTesting"/>
         </methods>
       </class> <!-- TestCases -->

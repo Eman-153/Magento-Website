@@ -11,17 +11,28 @@ public class Parameter {
 	
 	 static WebDriver driver = new EdgeDriver();
 	String website = "https://magento.softwaretestingboard.com/";
-	String FirstName = "Eman";
-	String LastName = "mousa";
-	String Email = "eman_cis005@yahoo.com";
-	String Password = "Eman12345";
-	Assertion myassert = new Assertion();
+	String SingInPage = "https://magento.softwaretestingboard.com/customer/account/login";
+	String SingOut = "https://magento.softwaretestingboard.com/customer/account/logout/"; 
+	
+	String[] FirstName = {"Sama","Leen","Joud","Saly","Raneem","Asmaa"};
+	String [] LastName = {"mousa","Ahma","Sami","Ali","Kamal","Khaled"};
+	String PartEmail= "user";
+	String RestEmail = "@yahoo.com";
+	String Password = "abc@@12345";
+	String EmailToLogin;
+	
 	Random rand = new Random();
+	
+	int RandName = rand.nextInt(0, 6);
+	int RandEmail = rand.nextInt(0, 100);
+	
+	String FullEmail;
+	
 	String Address = "amman st";
 	String City = "Amman";
 	String Zipcode = "00962";
 	String phonenumber = "0987654321";
-	
+	Assertion myassert = new Assertion();
 	
 	
 	
